@@ -1,0 +1,18 @@
+service: image-recognition
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+functions:
+  image-analyse:
+    handler: ./application/handlers/analyse.main
+    events:
+      - httpApi:
+          path: /analyse
+          method: post
+      - websocket: $connect
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
